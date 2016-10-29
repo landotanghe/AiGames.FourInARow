@@ -1,4 +1,5 @@
 ﻿using FourInARow.Visualisation;
+using FourInARow.Visualisation.Controller;
 
 namespace FourInARow
 {

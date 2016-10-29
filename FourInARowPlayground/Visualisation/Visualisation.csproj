@@ -48,19 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FourInARowForm.cs">
+    <Compile Include="Gui\Controller\Bot.cs" />
+    <Compile Include="Gui\Forms\FourInARowForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FourInARowFormController.cs" />
-    <Compile Include="PlayInCmd.cs" />
-    <Compile Include="PlayInWindow.cs" />
+    <Compile Include="Gui\Controller\FourInARowFormController.cs" />
+    <Compile Include="Cmd\PlayInCmd.cs" />
+    <Compile Include="Gui\Panels\BoardPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Panels\EditPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FourInARowForm.resx" />
+    <EmbeddedResource Include="Gui\Forms\FourInARowForm.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\FourInARowSubmission\Algorithm\Algorithm.csproj">
@@ -68,6 +74,7 @@
       <Name>Algorithm</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
