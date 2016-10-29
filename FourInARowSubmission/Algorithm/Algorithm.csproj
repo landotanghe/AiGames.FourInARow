@@ -53,6 +53,7 @@
     <Compile Include="Strategies\AlphaBetaStrategyWithOrdering.cs" />
     <Compile Include="Strategies\Evaluators\IEvaluator.cs" />
     <Compile Include="Strategies\Evaluators\ImmediateEvaluator.cs" />
+    <Compile Include="Strategies\Evaluators\ImmediateEvaluatorOnlyEmptyCells.cs" />
     <Compile Include="Strategies\Evaluators\SimpleEvaluator.cs" />
     <Compile Include="Strategies\IStrategy.cs" />
     <Compile Include="Strategies\MinimaxStrategy.cs" />

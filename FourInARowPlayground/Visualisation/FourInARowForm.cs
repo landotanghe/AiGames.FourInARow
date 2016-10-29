@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -64,6 +65,7 @@ namespace FourInARow.Visualisation
                 pevent.Graphics.FillEllipse(new SolidBrush(DiscColor), rectangle);
             }            
         }
+                
 
         public class Column : Button
         {
@@ -160,6 +162,33 @@ namespace FourInARow.Visualisation
                     
                     Controls.Add(columnButton);
                     columnButton.BringToFront();
+                }
+            }
+
+
+            public void EnablePlayerMoves(IEnumerable<int> openColumns)
+            {
+                foreach (var i in openColumns)
+                {
+                    var column = columns[i];
+                    column.Enabled = true;
+                    column.Invalidate();
+                }
+            }
+
+            public void DisableColumn(int columnIndex)
+            {
+                var column = columns[columnIndex];
+                column.Enabled = false;
+                column.Invalidate();
+            }
+
+            public void DisablePlayerMoves()
+            {
+                foreach (var column in columns)
+                {
+                    column.Enabled = false;
+                    column.Invalidate();
                 }
             }
 
