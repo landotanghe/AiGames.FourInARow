@@ -1,0 +1,8 @@
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\bin\Debug\FourInARowSubmission.exe.config
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\bin\Debug\FourInARowSubmission.exe
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\bin\Debug\FourInARowSubmission.pdb
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\bin\Debug\Algorithm.dll
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\bin\Debug\Algorithm.pdb
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\obj\Debug\FourInARowSubmission.csprojResolveAssemblyReference.cache
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\obj\Debug\FourInARowSubmission.exe
+C:\Users\lando\Documents\Visual Studio 2015\Projects\FourInARowSubmission\FourInARowSubmission\obj\Debug\FourInARowSubmission.pdb
