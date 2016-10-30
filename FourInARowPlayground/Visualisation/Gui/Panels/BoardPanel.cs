@@ -63,7 +63,7 @@ namespace Visualisation.Gui.Panels
                 Height = 50; //Cell.CellRadius * rowCount;
             }
 
-            protected override void OnPaint(PaintEventArgs pevent)
+           /* protected override void OnPaint(PaintEventArgs pevent)
             {
                 if (IsPickedColumn)
                 {
@@ -71,6 +71,9 @@ namespace Visualisation.Gui.Panels
                     //pevent.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(10, 0, 0, 0)), rectangle);
                     pevent.Graphics.DrawRectangle(new Pen(Color.Black), rectangle);
                 }
+                Font drawFont = new Font("Arial", 12);
+                var drawBrush = new SolidBrush(Color.Black);
+                pevent.Graphics.DrawString($"{_column}", drawFont, drawBrush, 0, Height);
             }
 
             protected override void OnMouseHover(EventArgs e)
@@ -85,7 +88,7 @@ namespace Visualisation.Gui.Panels
                 base.OnMouseLeave(e);
                 IsPickedColumn = false;
                 Invalidate();
-            }
+            }*/
 
             protected override void OnClick(EventArgs e)
             {
@@ -100,7 +103,6 @@ namespace Visualisation.Gui.Panels
 
         public BoardPanel(FourInARowFormController controller)
         {
-            //Dock = DockStyle.Fill;
             BackColor = Color.DarkCyan;
             _controller = controller;
             var board = controller.GetBoard();

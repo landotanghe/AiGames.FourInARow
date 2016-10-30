@@ -20,7 +20,7 @@ namespace Visualisation.Gui.Controller
         {
             _controller = controller;
             _me = player;
-            _strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluator(), 1);
+            _strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluator(), 3);
         }
 
         public void Think()
@@ -28,7 +28,6 @@ namespace Visualisation.Gui.Controller
             _controller.DisablePlayerMoves();
             int column = _strategy.NextMove(new Board(_controller.GetBoard(), _me, 1 + (_me % 2)));
             int row = _controller.DropDisc(column);
-            _controller.CheckWin(row, column);
             _controller.EnableValidPlayerMoves();
         }
     }

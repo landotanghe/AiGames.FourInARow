@@ -13,7 +13,9 @@ namespace FourInARow.Visualisation.Controller
     {
         private const string HumanOption = "Human";
         private const string BotOption = "Bot";
-        private Stack<int> movesMade;
+
+        private System.Diagnostics.Stopwatch StopWatch;
+        private List<Move> movesMade;
 
         private Board Board;
         private FourInARowForm Form;
@@ -25,15 +27,21 @@ namespace FourInARow.Visualisation.Controller
 
         public bool IsGameEnded { get; private set; }
 
+        private class Move
+        {
+            public int Column { get; set; }
+            public long MilisNeeded { get; set; }
+        }
+
         public FourInARowFormController()
         {
-            movesMade = new Stack<int>();
+            movesMade = new List<Move>();
         }
 
 
         public void EnableValidPlayerMoves()
         {
-            if(IsGameEnded)
+            if(!IsGameEnded)
             {
                 Form.Board.EnablePlayerMoves(Board.GetOpenColumns());
             }
@@ -44,23 +52,32 @@ namespace FourInARow.Visualisation.Controller
             Form.Board.DisablePlayerMoves();
         }
 
-        internal void Undo()
+        public void Undo()
         {
-            var lastMove = movesMade.Pop();
-            Board.RemoveTopDisc(lastMove);
+            var lastMove = movesMade.Last();
+            movesMade.Remove(lastMove);
+            var row = Board.RemoveTopDisc(lastMove.Column);
+            Form.Board.UpdateCellColor(row, lastMove.Column, 0);
+
             SwitchPlayer();
 
             if (!movesMade.Any())
             {
                 Form.Edit.DisableUndo();
             }
+
+            IsGameEnded = false;
+            Form.ClearWinMessage();
+            EnableValidPlayerMoves();
+            
+            StopWatch = System.Diagnostics.Stopwatch.StartNew();
         }
 
         public void Init()
         {
             PlayerOptions = new string[] { HumanOption, BotOption };
-            Bots = new Bot[3];
-            Bots[2] = new Bot(this, 2);
+            Bots = new Bot[2];
+            Bots[1] = new Bot(this, 2);
 
             Board = new Board(6, 7);
             Form = new FourInARowForm(this);
@@ -74,6 +91,12 @@ namespace FourInARow.Visualisation.Controller
             var Player1Wins = Board.HasFourInARow(1, row, column);
             var Player2Wins = Board.HasFourInARow(2, row, column);
             IsGameEnded = IsDraw || Player1Wins || Player2Wins;
+
+            if (!IsGameEnded)
+            {
+                return;
+            }
+
             if (IsDraw)
             {
                 Form.WarnDraw();
@@ -94,11 +117,11 @@ namespace FourInARow.Visualisation.Controller
         {
             if(option == BotOption)
             {
-                Bots[player] = new Bot(this, player);
+                Bots[player - 1] = new Bot(this, player);
             }
             else if(option == HumanOption)
             {
-                Bots[player] = null;
+                Bots[player - 1] = null;
             }
             else
             {
@@ -106,36 +129,58 @@ namespace FourInARow.Visualisation.Controller
             }
 
             if(!IsGameEnded)
-                Bots[CurrentPlayer]?.Think();
+                KickStartBot();
         }
         
         public int DropDisc(int column)
         {
-            int row = -1;
-            if (Board.GetOpenColumns().Contains(column))
+            if (!Board.GetOpenColumns().Contains(column))
             {
-                row = Board.DropDisc(column, CurrentPlayer);
-                Form.Board.UpdateCellColor(row, column, CurrentPlayer);
-                if(row == 0)
-                {
-                    Form.Board.DisableColumn(column);
-                }
-
-                SwitchPlayer();
+                return -1;
             }
 
-            if (!IsGameEnded)
-                Bots[CurrentPlayer]?.Think();
+            int row = Board.DropDisc(column, CurrentPlayer);
+            Form.Board.UpdateCellColor(row, column, CurrentPlayer);
+            if(row == 0)
+            {
+                Form.Board.DisableColumn(column);
+            }
+            
+            var millisNeeded = StopWatch == null ? 0 : StopWatch.ElapsedMilliseconds;
+            movesMade.Add(new Move {
+                Column = column,
+                MilisNeeded = millisNeeded
+            });
+            UpdatePlayerTimes();
+            StopWatch = System.Diagnostics.Stopwatch.StartNew();
 
-            movesMade.Push(column);
+            SwitchPlayer();
             Form.Edit.EnableUndo();
+            CheckWin(row, column);
+
+            if (!IsGameEnded)
+                KickStartBot();
 
             return row;
         }
 
+        private void UpdatePlayerTimes()
+        {
+            int playerIndex = CurrentPlayer - 1;
+            List<long> times = new List<long>();
+            for (int i = 0; i < movesMade.Count; i++)
+            {
+                if(i % 2 == playerIndex) {
+                    var move = movesMade[i];
+                    times.Add(move.MilisNeeded);
+                }
+            }
+            Form.Statistics.UpdatePlayerTimes(playerIndex, times);
+        }
+
         public void KickStartBot()
         {
-            Bots[CurrentPlayer]?.Think();
+            Bots[CurrentPlayer - 1]?.Think();
         }
 
         private void SwitchPlayer()

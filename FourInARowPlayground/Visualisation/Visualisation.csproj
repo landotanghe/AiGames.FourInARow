@@ -60,6 +60,9 @@
     <Compile Include="Gui\Panels\EditPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Gui\Panels\StatisticsPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
