@@ -10,15 +10,15 @@ namespace FourInARow
     public class Session
     {
         // TODO optimize when loading board: only scan top of non-empty columns
+        // TODO improve evaluation function: prefer 3 in a row on left bottom instead of 3 in a row on top of board
         public void Run()
         {
             Console.SetIn(new StreamReader(Console.OpenStandardInput(512)));
             string line;
             
             Board board = new Board();
-
-            //IStrategy strategy = new RandomizedStrategy();
-            IStrategy strategy = new AlphaBetaStrategy(new ImmediateEvaluator(), 3); //new MinimaxStrategy(new SimpleEvaluator());
+            
+            IStrategy strategy = new AlphaBetaStrategy(new ImmediateEvaluator(), 3);
 
             while ((line = Console.ReadLine()) != null)
             {
