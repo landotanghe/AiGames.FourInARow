@@ -10,20 +10,16 @@ namespace main
 
     public class Map
     {
-
-        public List<Region> regions;
-        public List<SuperRegion> superRegions;
-
         public Map()
         {
-            this.regions = new List<Region>();
-            this.superRegions = new List<SuperRegion>();
+            Regions = new List<Region>();
+            SuperRegions = new List<SuperRegion>();
         }
 
         public Map(List<Region> regions, List<SuperRegion> superRegions)
         {
-            this.regions = regions;
-            this.superRegions = superRegions;
+            Regions = regions;
+            SuperRegions = superRegions;
         }
 
         /**
@@ -32,13 +28,13 @@ namespace main
          */
         public void Add(Region region)
         {
-            foreach (Region r in regions)
+            foreach (Region r in Regions)
                 if (r.Id == region.Id)
                 {
                     Console.Error.WriteLine("Region cannot be Added: id already exists.");
                     return;
                 }
-            regions.Add(region);
+            Regions.Add(region);
         }
 
         /**
@@ -47,13 +43,13 @@ namespace main
          */
         public void Add(SuperRegion superRegion)
         {
-            foreach (SuperRegion sr in superRegions)
+            foreach (SuperRegion sr in SuperRegions)
                 if (sr.Id == superRegion.Id)
                 {
                     Console.Error.WriteLine("SuperRegion cannot be Added: id already exists.");
                     return;
                 }
-            superRegions.Add(superRegion);
+            SuperRegions.Add(superRegion);
         }
 
         /**
@@ -62,17 +58,17 @@ namespace main
         public Map GetMapCopy()
         {
             Map newMap = new Map();
-            foreach (SuperRegion sr in superRegions) //copy superRegions
+            foreach (SuperRegion sr in SuperRegions) //copy superRegions
             {
                 SuperRegion newSuperRegion = new SuperRegion(sr.Id, sr.ArmiesReward);
                 newMap.Add(newSuperRegion);
             }
-            foreach (Region r in regions) //copy regions
+            foreach (Region r in Regions) //copy regions
             {
                 Region newRegion = new Region(r.Id, newMap.GetSuperRegion(r.SuperRegion.Id), r.PlayerName, r.Armies);
                 newMap.Add(newRegion);
             }
-            foreach (Region r in regions) //Add neighbors to copied regions
+            foreach (Region r in Regions) //Add neighbors to copied regions
             {
                 Region newRegion = newMap.GetRegion(r.Id);
                 foreach (Region neighbor in r.Neighbors)
@@ -87,10 +83,7 @@ namespace main
          */
         public Region GetRegion(int id)
         {
-            foreach (Region region in regions)
-                if (region.Id == id)
-                    return region;
-            return null;
+            return Regions.Where(r => r.Id == id).FirstOrDefault();
         }
 
         /**
@@ -99,25 +92,22 @@ namespace main
          */
         public SuperRegion GetSuperRegion(int id)
         {
-            foreach (SuperRegion superRegion in superRegions)
-                if (superRegion.Id == id)
-                    return superRegion;
-            return null;
+            return SuperRegions.Where(r => r.Id == id).FirstOrDefault();
         }
 
         public List<Region> Regions
         {
-            get { return regions; }
+            get; private set;
         }
 
         public List<SuperRegion> SuperRegions
         {
-            get { return superRegions; }
+            get; private set;
         }
 
-        public String MapString
+        public string MapString
         {
-            get { return string.Join(" ", regions.Select(region => region.Id + ";" + region.PlayerName + ";" + region.Armies)); }
+            get { return string.Join(" ", Regions.Select(region => region.Id + ";" + region.PlayerName + ";" + region.Armies)); }
         }
     }
 }

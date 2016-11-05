@@ -11,40 +11,33 @@ namespace main
 
     public class Region
     {
-
-        private int id;
-        private List<Region> neighbors;
-        private SuperRegion superRegion;
-        private int armies;
-        private String playerName;
-
         public Region(int id, SuperRegion superRegion)
         {
-            this.id = id;
-            this.superRegion = superRegion;
-            this.neighbors = new List<Region>();
-            this.playerName = "unknown";
-            this.armies = 0;
+            Id = id;
+            SuperRegion = superRegion;
+            Neighbors = new List<Region>();
+            PlayerName = "unknown";
+            Armies = 0;
 
             superRegion.AddSubRegion(this);
         }
 
-        public Region(int id, SuperRegion superRegion, String playerName, int armies)
+        public Region(int id, SuperRegion superRegion, string playerName, int armies)
         {
-            this.id = id;
-            this.superRegion = superRegion;
-            this.neighbors = new List<Region>();
-            this.playerName = playerName;
-            this.armies = armies;
+            Id = id;
+            SuperRegion = superRegion;
+            Neighbors = new List<Region>();
+            PlayerName = playerName;
+            Armies = armies;
 
             superRegion.AddSubRegion(this);
         }
 
         public void AddNeighbor(Region neighbor)
         {
-            if (!neighbors.Contains(neighbor))
+            if (!Neighbors.Contains(neighbor))
             {
-                neighbors.Add(neighbor);
+                Neighbors.Add(neighbor);
                 neighbor.AddNeighbor(this);
             }
         }
@@ -55,9 +48,7 @@ namespace main
          */
         public bool IsNeighbor(Region region)
         {
-            if (neighbors.Contains(region))
-                return true;
-            return false;
+            return (Neighbors.Contains(region));
         }
 
         /**
@@ -66,36 +57,32 @@ namespace main
          */
         public bool OwnedByPlayer(String playerName)
         {
-            if (playerName == this.playerName)
-                return true;
-            return false;
+            return PlayerName == playerName;
         }
 
         public int Armies
         {
-            set { armies = value; }
-            get { return armies; }
+            get; set;
         }
 
         public String PlayerName
         {
-            set { playerName = value; }
-            get { return playerName; }
+            get; set;
         }
 
         public int Id
         {
-            get { return id; }
+            get; private set;
         }
 
         public List<Region> Neighbors
         {
-            get { return neighbors; }
+            get; private set;
         }
 
         public SuperRegion SuperRegion
         {
-            get { return superRegion; }
+            get; private set;
         }
 
     }

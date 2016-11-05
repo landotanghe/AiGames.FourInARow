@@ -13,13 +13,12 @@ namespace bot
     {
 
         readonly Bot bot;
-
-        BotState currentState;
+        BotState CurrentState;
 
         public BotParser(Bot bot)
         {
             this.bot = bot;
-            this.currentState = new BotState();
+            CurrentState = new BotState();
         }
 
         public void Run()
@@ -38,8 +37,8 @@ namespace bot
                 if (parts[0] == "pick_starting_regions")
                 {
                     // Pick which regions you want to start with
-                    currentState.SetPickableStartingRegions(parts);
-                    var preferredStartingRegions = bot.GetPreferredStartingRegions(currentState, long.Parse(parts[1]));
+                    CurrentState.SetPickableStartingRegions(parts);
+                    var preferredStartingRegions = bot.GetPreferredStartingRegions(CurrentState, long.Parse(parts[1]));
                     var output = new StringBuilder();
                     foreach (var region in preferredStartingRegions)
                         output.Append(region.Id + " ");
@@ -53,14 +52,14 @@ namespace bot
                     if (parts[1] == "place_armies")
                     {
                         // Place armies
-                        List<PlaceArmiesMove> placeArmiesMoves = bot.GetPlaceArmiesMoves(currentState, long.Parse(parts[2]));
+                        List<PlaceArmiesMove> placeArmiesMoves = bot.GetPlaceArmiesMoves(CurrentState, long.Parse(parts[2]));
                         foreach (var move in placeArmiesMoves)
                             output.Append(move.String + ",");
                     }
                     else if (parts[1] == "attack/transfer")
                     {
                         // attack/transfer
-                        var attackTransferMoves = bot.GetAttackTransferMoves(currentState, long.Parse(parts[2]));
+                        var attackTransferMoves = bot.GetAttackTransferMoves(CurrentState, long.Parse(parts[2]));
                         foreach (var move in attackTransferMoves)
                             output.Append(move.String + ",");
                     }
@@ -72,22 +71,22 @@ namespace bot
                 else if (parts.Length == 3 && parts[0] == "settings")
                 {
                     // Update settings
-                    currentState.UpdateSettings(parts[1], parts[2]);
+                    CurrentState.UpdateSettings(parts[1], parts[2]);
                 }
                 else if (parts[0] == "setup_map")
                 {
                     // Initial full map is given
-                    currentState.SetupMap(parts);
+                    CurrentState.SetupMap(parts);
                 }
                 else if (parts[0] == "update_map")
                 {
                     // All visible regions are given
-                    currentState.UpdateMap(parts);
+                    CurrentState.UpdateMap(parts);
                 }
                 else if (parts[0] == "opponent_moves")
                 {
                     // All visible opponent moves are given
-                    currentState.ReadOpponentMoves(parts);
+                    CurrentState.ReadOpponentMoves(parts);
                 }
                 else
                 {

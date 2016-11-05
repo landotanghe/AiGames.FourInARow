@@ -15,8 +15,8 @@ namespace bot
     public class BotState
     {
 
-        private String myName = "";
-        private String opponentName = "";
+        private string myName = "";
+        private string opponentName = "";
 
         private readonly Map fullMap = new Map(); // This map is known from the start, contains all the regions and how they are connected, doesn't change after initialization
         private Map visibleMap; // This map represents everything the player can see, updated at the end of each round.
@@ -50,7 +50,7 @@ namespace bot
         }
 
         // Initial map is given to the bot with all the information except for player and armies info
-        public void SetupMap(String[] mapInput)
+        public void SetupMap(string[] mapInput)
         {
             int i, regionId, superRegionId, reward;
 
@@ -113,7 +113,7 @@ namespace bot
         }
 
         // Regions from wich a player is able to pick his preferred starting regions
-        public void SetPickableStartingRegions(String[] mapInput)
+        public void SetPickableStartingRegions(string[] mapInput)
         {
             for (int i = 2; i < mapInput.Length; i++)
             {
@@ -132,7 +132,7 @@ namespace bot
         }
 
         // Visible regions are given to the bot with player and armies info
-        public void UpdateMap(String[] mapInput)
+        public void UpdateMap(string[] mapInput)
         {
             visibleMap = fullMap.GetMapCopy();
             for (int i = 1; i < mapInput.Length; i++)
@@ -140,7 +140,7 @@ namespace bot
                 try
                 {
                     Region region = visibleMap.GetRegion(int.Parse(mapInput[i]));
-                    String playerName = mapInput[i + 1];
+                    string playerName = mapInput[i + 1];
                     int armies = int.Parse(mapInput[i + 2]);
 
                     region.PlayerName = playerName;

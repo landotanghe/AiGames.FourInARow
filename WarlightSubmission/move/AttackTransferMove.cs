@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 
 using main;
@@ -17,41 +14,37 @@ namespace move
 
 	public class AttackTransferMove : Move {
 		
-		private Region fromRegion;
-		private Region toRegion;
-		private int armies;
 		
-		public AttackTransferMove(String playerName, Region fromRegion, Region toRegion, int armies)
+		public AttackTransferMove(string playerName, Region fromRegion, Region toRegion, int armies)
 		{
-			base.PlayerName = playerName;
-			this.fromRegion = fromRegion;
-			this.toRegion = toRegion;
-			this.armies = armies;
+			PlayerName = playerName;
+			FromRegion = fromRegion;
+			ToRegion = toRegion;
+            Armies = armies;
 		}
 
 		public int Armies
 		{
-			set { armies = value; }
-			get { return armies; }
+            get; set;
 		}
 
 		public Region FromRegion
 		{
-			get { return fromRegion; }
+            get; private set;
 		}
 
 		public Region ToRegion
 		{
-			get { return toRegion; }
+            get; private set;
 		}
 
-		public String String
+		public string String
 		{
 			get { 
-				if(string.IsNullOrEmpty(base.IllegalMove))
-					return base.PlayerName + " attack/transfer " + fromRegion.Id + " " + toRegion.Id + " " + armies;
+				if(IsLegalMove)
+					return PlayerName + " attack/transfer " + FromRegion.Id + " " + ToRegion.Id + " " + Armies;
 				else
-					return base.PlayerName + " illegal_move " + base.IllegalMove; 
+					return PlayerName + " illegal_move " + IllegalMoveMessage; 
 			}
 		}
 

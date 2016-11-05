@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-
 using main;
 
 namespace move
@@ -15,35 +10,28 @@ namespace move
  */
 
 	public class PlaceArmiesMove : Move {
-		
-		private Region region;
-		private int armies;
-		
+				
 		public PlaceArmiesMove(string playerName, Region region, int armies)
 		{
-			base.PlayerName = playerName;
-			this.region = region;
-			this.armies = armies;
+			PlayerName = playerName;
+            Region = region;
+            Armies = armies;
 		}
 
-		public int Armies
-		{
-			set { armies = value; }
-			get { return armies; }
-		}
+		public int Armies { set; get; }
 
 		public Region Region
 		{
-			get { return region; }
+            get; private set;
 		}
 
-		public String String
+		public string String
 		{
 			get { 
-				if(string.IsNullOrEmpty(base.IllegalMove))
-					return base.PlayerName + " place_armies " + region.Id + " " + armies;
+				if(IsLegalMove)
+					return PlayerName + " place_armies " + Region.Id + " " + Armies;
 				else
-					return base.PlayerName + " illegal_move " + base.IllegalMove;
+					return PlayerName + " illegal_move " + IllegalMoveMessage;
 			}
 		}
 	}

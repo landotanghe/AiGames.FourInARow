@@ -9,20 +9,26 @@ namespace move
 
     public class Move
     {
-
-        private String playerName; // Name of the player that did this move
-        private String illegalMove = ""; // Gets the value of the error message if move is illegal, else remains empty
-
-        public String PlayerName
+        public Move()
         {
-            set { playerName = value; }
-            get { return playerName; }
+            IllegalMoveMessage = String.Empty;
+        }
+        
+        // Name of the player that did this move
+        public string PlayerName
+        {
+            get; set;
         }
 
-        public String IllegalMove
+        // Gets the value of the error message if move is illegal, else remains empty
+        public string IllegalMoveMessage
         {
-            set { illegalMove = value; }
-            get { return illegalMove; }
+            get; set;
+        }
+
+        public bool IsLegalMove
+        {
+            get { return String.IsNullOrEmpty(IllegalMoveMessage); }
         }
 
     }
