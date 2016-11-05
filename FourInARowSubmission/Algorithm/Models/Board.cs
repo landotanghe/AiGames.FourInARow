@@ -161,11 +161,15 @@ namespace FourInARow
         
         public bool HasFourInARow(int player, int row, int column)
         {
-            return _boardArray[row][column] == player &&
-                (GetPotentialHorizontalLength(player, row, column) >= 4
-                || GetPotentialVerticalLength(player, row, column) >= 4
-                || GetPotentialDownwardDiagonalLength(player, row, column) >= 4
-                || GetPotentialUpwardDiagonalLength(player, row, column) >= 4);
+            return _boardArray[row][column] == player && HasPotentialLengthOfFour(player, row, column);
+        }
+
+        private bool HasPotentialLengthOfFour(int player, int row, int column)
+        {
+            return GetPotentialHorizontalLength(player, row, column) >= 4
+                            || GetPotentialVerticalLength(player, row, column) >= 4
+                            || GetPotentialDownwardDiagonalLength(player, row, column) >= 4
+                            || GetPotentialUpwardDiagonalLength(player, row, column) >= 4;
         }
 
         public int GetPotentialLength(int player, int row, int column)

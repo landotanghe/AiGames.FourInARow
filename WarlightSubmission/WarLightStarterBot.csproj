@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2142B5D4-4D89-4E53-A7C0-3463673B6C2A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{630A9CC5-328A-4569-8CBB-568410D7ADB3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Algorithm</RootNamespace>
-    <AssemblyName>Algorithm</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>WarLightStarterBot</RootNamespace>
+    <AssemblyName>WarLightStarterBot</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,28 +38,25 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Board.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Session.cs" />
-    <Compile Include="Strategies\AlphaBetaStrategy.cs" />
-    <Compile Include="Strategies\AlphaBetaStrategyWithOrdering.cs" />
-    <Compile Include="Strategies\Evaluators\IEvaluator.cs" />
-    <Compile Include="Strategies\Evaluators\ImmediateEvaluator.cs" />
-    <Compile Include="Strategies\Evaluators\ImmediateEvaluatorOnlyEmptyCells.cs" />
-    <Compile Include="Strategies\Evaluators\SimpleEvaluator.cs" />
-    <Compile Include="Strategies\IStrategy.cs" />
-    <Compile Include="Strategies\MinimaxStrategy.cs" />
-    <Compile Include="Strategies\RandomizedStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bot\Bot.cs" />
+    <Compile Include="bot\BotParser.cs" />
+    <Compile Include="bot\BotStarter.cs" />
+    <Compile Include="bot\BotState.cs" />
+    <Compile Include="main\Map.cs" />
+    <Compile Include="main\Region.cs" />
+    <Compile Include="main\SuperRegion.cs" />
+    <Compile Include="move\AttackTransferMove.cs" />
+    <Compile Include="move\Move.cs" />
+    <Compile Include="move\PlaceArmiesMove.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, Add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

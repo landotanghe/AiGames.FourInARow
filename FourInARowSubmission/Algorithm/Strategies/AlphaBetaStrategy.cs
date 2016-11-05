@@ -41,7 +41,7 @@ namespace FourInARow.Strategies
             {
                 using (var move = ExploreMove(_me, column))
                 {
-                    if (IsWin(_me, move.Row, move.Column))
+                    if (IsWinningMove(_me, move.Row, move.Column))
                         return column;
 
                     double score = FindBestScoreForOpponent(alpha, beta, currentDepth: 0);
@@ -77,7 +77,7 @@ namespace FourInARow.Strategies
             {
                 using (var move = ExploreMove(_me, column))
                 {
-                    if (IsWin(_me, move.Row, move.Column))
+                    if (IsWinningMove(_me, move.Row, move.Column))
                         return Double.MaxValue;
 
                     double score = FindBestScoreForOpponent(alpha, beta, currentDepth);
@@ -108,7 +108,7 @@ namespace FourInARow.Strategies
             {
                 using (var move = ExploreMove(_opponent, column))
                 {
-                    if (IsWin(_opponent, move.Row, move.Column))
+                    if (IsWinningMove(_opponent, move.Row, move.Column))
                         return Double.MinValue;
 
                     double score = FindBestScoreForMe(alpha, beta, currentDepth + 1);
@@ -177,10 +177,9 @@ namespace FourInARow.Strategies
             }
         }
 
-        private bool IsWin(int player, int row, int column)
+        private bool IsWinningMove(int player, int row, int column)
         {
-            return _board.IsPlayer(player, row, column)
-                && _board.GetPotentialLength(player, row, column) >= 4;
+            return _board.GetPotentialLength(player, row, column) >= 4;
         }
     }
 }
