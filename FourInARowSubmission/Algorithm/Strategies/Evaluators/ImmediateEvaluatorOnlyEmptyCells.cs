@@ -8,23 +8,30 @@ namespace FourInARow.Strategies.Evaluators
 {
     public class ImmediateEvaluatorOnlyEmptyCells : IEvaluator
     {
-        private static readonly double[] RowStrenghtsEvenPlayer = new double[]{
-            2.0, 1.0, 2.1, 1.1, 2.2, 1.2
-        };
+        private double[] RowStrenghtsEvenPlayer;
 
-        private static readonly double[] RowStrenghtsOddPlayer = new double[]{
-            1.0, 2.0, 1.1, 2.1, 1.2, 2.2
-        };
+        private double[] RowStrenghtsOddPlayer;
 
         private int EmptyPlaces;
         protected Dictionary<int, int[][]> StrengthsPerPlayer;
         private Dictionary<int, double[]> RowStrengthsPerPlayer;
         protected Board _board;
 
-        public ImmediateEvaluatorOnlyEmptyCells(bool UseRowStrengths = false)
+        public ImmediateEvaluatorOnlyEmptyCells() :
+            this(rowStrenghtsEvenPlayer: new double[]{
+                2.0, 1.0, 2.1, 1.1, 2.2, 1.2
+            }, rowStrenghtsOddPlayer: new double[]{
+                1.0, 2.0, 1.1, 2.1, 1.2, 2.2
+            })
+        {
+        }
+
+        public ImmediateEvaluatorOnlyEmptyCells(double[] rowStrenghtsEvenPlayer, double[] rowStrenghtsOddPlayer)
         {
             StrengthsPerPlayer = new Dictionary<int, int[][]>();
             RowStrengthsPerPlayer = new Dictionary<int, double[]>();
+            RowStrenghtsEvenPlayer = rowStrenghtsEvenPlayer;
+            RowStrenghtsOddPlayer = rowStrenghtsOddPlayer;
         }
 
         public double Evaluate(Board board)

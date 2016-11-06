@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2142B5D4-4D89-4E53-A7C0-3463673B6C2A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{BCA05D69-0C15-46C5-8069-6AC52FE28A8C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Algorithm</RootNamespace>
-    <AssemblyName>Algorithm</AssemblyName>
+    <RootNamespace>GeneticAlgorithm</RootNamespace>
+    <AssemblyName>GeneticAlgorithm</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,23 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LocalGames\LocalGame.cs" />
-    <Compile Include="LocalGames\Player.cs" />
-    <Compile Include="Models\Board.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Session.cs" />
-    <Compile Include="Strategies\AlphaBetaStrategy.cs" />
-    <Compile Include="Strategies\AlphaBetaStrategyWithOrdering.cs" />
-    <Compile Include="Strategies\Evaluators\IEvaluator.cs" />
-    <Compile Include="Strategies\Evaluators\ImmediateEvaluator.cs" />
-    <Compile Include="Strategies\Evaluators\ImmediateEvaluatorOnlyEmptyCells.cs" />
-    <Compile Include="Strategies\Evaluators\SimpleEvaluator.cs" />
-    <Compile Include="Strategies\IStrategy.cs" />
-    <Compile Include="Strategies\MinimaxStrategy.cs" />
-    <Compile Include="Strategies\RandomizedStrategy.cs" />
+    <Compile Include="GeneticAlgorithm.cs" />
+    <Compile Include="Individual.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FourInARowSubmission\Algorithm\Algorithm.csproj">
+      <Project>{2142b5d4-4d89-4e53-a7c0-3463673b6c2a}</Project>
+      <Name>Algorithm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
