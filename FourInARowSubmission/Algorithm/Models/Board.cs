@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -14,7 +15,9 @@ namespace FourInARow
         private int _mybotId;
         private int _opponentId;
 
-        public Board() { }
+        public Board()
+        {
+        }
 
         public Board(Board board, int me, int opponent)
         {
@@ -102,6 +105,16 @@ namespace FourInARow
         public void Update(int[][] boardArray)
         {
             _boardArray = boardArray;
+            _emptyRows = new int[ColumnCount()];
+            for (int column = 0; column < ColumnCount(); column++)
+            {
+                var emptyRow = _emptyRows[column];
+                if (emptyRow >= 0 && _boardArray[emptyRow][column] != NoDisc)
+                {
+                    _emptyRows[column]--;
+                    return;
+                }
+            }
         }
 
         public int ColumnCount()
