@@ -10,6 +10,7 @@ namespace FourInARow
     {
         public const int NoDisc = 0;
         private int[][] _boardArray;
+        private int[] _emptyRows;
         private int _mybotId;
         private int _opponentId;
 
@@ -31,6 +32,12 @@ namespace FourInARow
                 {
                     _boardArray[row][column] = board._boardArray[row][column];
                 }
+            }
+
+            _emptyRows = new int[columnCount];
+            for(int column = 0; column < columnCount; column++)
+            {
+                _emptyRows[column] = board._emptyRows[column];
             }
         }
 
@@ -57,6 +64,11 @@ namespace FourInARow
                 {
                     _boardArray[row][column] = NoDisc;
                 }
+            }
+            _emptyRows = new int[columnCount];
+            for (int column = 0; column < columnCount; column++)
+            {
+                _emptyRows[column] = LastRow();
             }
         }
         
@@ -121,7 +133,7 @@ namespace FourInARow
         {
             return _boardArray[row][column] == player;
         }
-
+        
         public int GetPlayer(int row, int column)
         {
             return _boardArray[row][column];
@@ -154,7 +166,8 @@ namespace FourInARow
         /// <returns>row of dropped disk</returns>
         public int DropDisc(int column, int player)
         {
-            var rowToFill = GetRowOfTopDiscInColumn(column) - 1;
+            var rowToFill = _emptyRows[column];
+            _emptyRows[column]--;
             _boardArray[rowToFill][column] = player;
             return rowToFill;
         }
@@ -359,25 +372,20 @@ namespace FourInARow
         public int RemoveTopDisc(int column)
         {
             var rowToEmpty = GetRowOfTopDiscInColumn(column);
+            _emptyRows[column]++;
             _boardArray[rowToEmpty][column] = NoDisc;
             return rowToEmpty;
         }
 
         public int GetRowOfTopDiscInColumn(int column)
         {
-            int row = LastRow();
-            if(_boardArray[row][column] == NoDisc)
-            {
-                return RowCount();
-            }
-            else
-            {
-                while(row > 0 && _boardArray[row - 1][column] != NoDisc)
-                {
-                    row--; 
-                }
-                return row;
-            }
+            // one cell lower than empty row
+            return _emptyRows[column] + 1;
+        }
+
+        public int FirstEmptyRowInColumn(int column)
+        {
+            return _emptyRows[column];
         }
 
         public override string ToString()

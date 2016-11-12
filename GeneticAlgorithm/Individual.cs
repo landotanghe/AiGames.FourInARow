@@ -35,6 +35,13 @@ namespace GeneticAlgorithm
             }
         }
 
+        public override string ToString()
+        {
+            var even = String.Join(",", WeightsEvenPlayer);
+            var odd = String.Join(",", WeightsOddPlayer);
+            return $"Even: {even}\nOdd: {odd}";
+        }
+
         public List<double> WeightsEvenPlayer { get; set; }
         public List<double> WeightsOddPlayer { get; set; }
 

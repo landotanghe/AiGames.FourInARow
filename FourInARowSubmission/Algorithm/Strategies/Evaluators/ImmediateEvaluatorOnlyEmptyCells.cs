@@ -87,16 +87,12 @@ namespace FourInARow.Strategies.Evaluators
         protected double QuadraticStrengths(int player)
         {
             double total = 0;
-            for (int row = 0; row < _board.RowCount(); row++)
+            for (int column = 0; column < _board.ColumnCount(); column++)
             {
-                for (int column = 0; column < _board.ColumnCount(); column++)
+                for (int row = _board.FirstEmptyRowInColumn(column); row >= 0; row--)
                 {
-                    // TODO optimize empty cells are always on top
-                    if (_board.IsEmpty(row, column))
-                    {
-                        int strength = StrengthsPerPlayer[player][row][column];
-                        total += strength * strength * RowStrengthsPerPlayer[player][row];
-                    }
+                    int strength = StrengthsPerPlayer[player][row][column];
+                    total += strength * strength * RowStrengthsPerPlayer[player][row];
                 }
             }
             return total;

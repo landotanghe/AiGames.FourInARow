@@ -14,9 +14,15 @@ namespace GeneticAlgorithm
         public static void Main(string[] args)
         {
             var geneticAlgorithm = new GeneticAlgorithm(PopulationSize);
+            var solutionsss = geneticAlgorithm.GetMostEvolvedIndividual();
+            Console.WriteLine(solutionsss);
             geneticAlgorithm.Evolve(GenerationsToEvolve);
             var solution = geneticAlgorithm.GetMostEvolvedIndividual();
             Console.WriteLine(String.Join(", ", solution));
+            while (true)
+            {
+                Console.ReadKey();
+            }
         }
     }
 }

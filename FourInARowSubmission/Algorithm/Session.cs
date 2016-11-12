@@ -18,7 +18,7 @@ namespace FourInARow
             
             Board board = new Board();
             
-            IStrategy strategy = new AlphaBetaStrategy(new ImmediateEvaluator(), 3);
+            IStrategy strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluatorOnlyEmptyCells(), 3);
 
             while ((line = Console.ReadLine()) != null)
             {

@@ -29,14 +29,14 @@ namespace GeneticAlgorithm
         private void EvaluatePopulation()
         {
             Scores = new Dictionary<Individual, int>();
-            for(int i= 0; i< Population.Count; i++)
+            for(int i = 0; i< Population.Count; i++)
             {
                 Scores.Add(Population[i], 0);
             }
 
-            for(int i=0; i < Population.Count - 1; i++)
+            for(int i = 0; i < Population.Count - 1; i++)
             {
-                for(int j=i+1; j < Population.Count; j++)
+                for(int j = i + 1; j < Population.Count; j++)
                 {
                     var individual1 = Population[i];
                     var individual2 = Population[2];
@@ -69,6 +69,7 @@ namespace GeneticAlgorithm
                 MutatePopulation();
 
                 EvaluatePopulation();
+                Console.WriteLine(String.Join("\n", BestIndividuals()));
             }
         }
 
