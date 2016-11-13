@@ -77,10 +77,12 @@ namespace FourInARow.Visualisation.Controller
         {
             PlayerOptions = new string[] { HumanOption, BotOption };
             Bots = new Bot[2];
-            Bots[1] = new Bot(this, 2);
+            Bots[0] = new Bot(this, 2);
 
             Board = new Board(6, 7);
             Form = new FourInARowForm(this);
+
+            Bots[0].Think();
 
             Application.Run(Form);
         }

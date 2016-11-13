@@ -105,7 +105,6 @@ namespace FourInARow
         public void Update(int[][] boardArray)
         {
             _boardArray = boardArray;
-            _emptyRows = new int[ColumnCount()];
             for (int column = 0; column < ColumnCount(); column++)
             {
                 var emptyRow = _emptyRows[column];
@@ -184,7 +183,26 @@ namespace FourInARow
             _boardArray[rowToFill][column] = player;
             return rowToFill;
         }
-        
+
+        public int RemoveTopDisc(int column)
+        {
+            var rowToEmpty = GetRowOfTopDiscInColumn(column);
+            _emptyRows[column]++;
+            _boardArray[rowToEmpty][column] = NoDisc;
+            return rowToEmpty;
+        }
+
+        public int GetRowOfTopDiscInColumn(int column)
+        {
+            // one cell lower than empty row
+            return _emptyRows[column] + 1;
+        }
+
+        public int FirstEmptyRowInColumn(int column)
+        {
+            return _emptyRows[column];
+        }
+
         public bool HasFourInARow(int player, int row, int column)
         {
             return _boardArray[row][column] == player && HasPotentialLengthOfFour(player, row, column);
@@ -381,26 +399,7 @@ namespace FourInARow
             return startLocation;
         }
         #endregion
-
-        public int RemoveTopDisc(int column)
-        {
-            var rowToEmpty = GetRowOfTopDiscInColumn(column);
-            _emptyRows[column]++;
-            _boardArray[rowToEmpty][column] = NoDisc;
-            return rowToEmpty;
-        }
-
-        public int GetRowOfTopDiscInColumn(int column)
-        {
-            // one cell lower than empty row
-            return _emptyRows[column] + 1;
-        }
-
-        public int FirstEmptyRowInColumn(int column)
-        {
-            return _emptyRows[column];
-        }
-
+        
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
