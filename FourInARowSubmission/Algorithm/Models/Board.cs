@@ -14,11 +14,7 @@ namespace FourInARow
         private int[] _emptyRows;
         private int _mybotId;
         private int _opponentId;
-
-        public Board()
-        {
-        }
-
+               
         public Board(Board board, int me, int opponent)
         {
             _mybotId = me;

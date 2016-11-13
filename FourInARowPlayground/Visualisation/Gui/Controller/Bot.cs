@@ -20,7 +20,7 @@ namespace Visualisation.Gui.Controller
         {
             _controller = controller;
             _me = player;
-            _strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluatorOnlyEmptyCells(), 3);
+            _strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluatorOnlyEmptyCells(), 4);
         }
 
         public void Think()

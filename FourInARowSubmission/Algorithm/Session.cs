@@ -16,9 +16,9 @@ namespace FourInARow
             Console.SetIn(new StreamReader(Console.OpenStandardInput(512)));
             string line;
             
-            Board board = new Board();
+            Board board = new Board(6, 7);
             
-            IStrategy strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluatorOnlyEmptyCells(), 3);
+            IStrategy strategy = new AlphaBetaStrategyWithOrdering(new ImmediateEvaluatorOnlyEmptyCells(), 4);
 
             while ((line = Console.ReadLine()) != null)
             {
